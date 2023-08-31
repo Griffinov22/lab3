@@ -3,18 +3,115 @@
 
 #include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+void welcome() {
+	cout << "Welcome to my program, please select an operation to perform:" << endl;
+}
+void notValidChoice() {
+	cout << "\nYou chose an invalid option. Please choose a number on the menu. Thank you.\n";
+}
+void thankyouMessage() {
+	cout << "Thank you for using my math menu! Booting down ... ... ... ...\n";
+}
+void printAnswer(float answer, float firstNum, float secondNum, char operation) {
+	cout << firstNum << " " << operation << " " << secondNum << " = " << answer << endl;
+}
+void printMenu(int& choice) {
+	cout << "\nYour mathematic menu:\n";
+	cout << "1. Addition" << endl;
+	cout << "2. Subtraction" << endl;
+	cout << "3. Multiplication" << endl;
+	cout << "4. Division" << endl;
+	cout << "\n5. Exit Program" << endl;
+	cout << "\nYour Selection: ";
+	cin >> choice;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void captureNum(float& val, string number) {
+	cout << "\nPlease enter the " << number << " value: ";
+	cin >> val;
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void visualizeMathOperation(float firstNum, float secondNum, char operation) {
+	float answer;
+	switch (operation) {
+		case '+':
+			answer = firstNum + secondNum;
+			printAnswer(answer, firstNum, secondNum, operation);
+			break;
+		case '-':
+			answer = firstNum - secondNum;
+			printAnswer(answer, firstNum, secondNum, operation);
+			break;
+		case '*':
+			answer = firstNum * secondNum;
+			printAnswer(answer, firstNum, secondNum, operation);
+			break;
+		case '/':
+			answer = firstNum / secondNum;
+			printAnswer(answer, firstNum, secondNum, operation);
+			break;
+		default:
+			cout << "Invalid operation character bug. Please fix";
+			break;
+	}
+}
+
+int main() {
+	int choice;
+	char operation;
+	float A;
+	float B;
+	bool isDone = false;
+
+	welcome();
+	while (!isDone) {
+		printMenu(choice);
+		switch (choice) {
+			case 1:
+				//addition
+				operation = '+';
+				captureNum(A, "first");
+				captureNum(B, "second");
+				
+				break;
+			case 2:
+				//subtraction
+				operation = '-';
+				captureNum(A, "first");
+				captureNum(B, "second"); 
+				break;
+			case 3:
+				//multiplication
+				operation = '*';
+				captureNum(A, "first");
+				captureNum(B, "second"); 
+				break;
+			case 4:
+				//division
+				operation = '/';
+				captureNum(A, "first");
+				captureNum(B, "second"); 
+				break;
+			case 5:
+				isDone = true;
+				thankyouMessage();
+				break;
+			default:
+				notValidChoice();
+				break;
+
+		}
+		if (isDone) return 0;
+		else visualizeMathOperation(A, B, operation);
+
+
+	}
+
+
+	//returning zero means that the main function was run successfully
+	return 0;
+}
+
+
